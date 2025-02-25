@@ -1,0 +1,1 @@
+查看Python基础数据结构的运行时间复杂度： https://wiki.python.org/moin/TimeComplexity
