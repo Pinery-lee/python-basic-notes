@@ -1,4 +1,4 @@
-# 双端队列的实现Deque ['dek] double-ended queue
+# 使用list实现双端队列的实现Deque ['dek] double-ended queue
 # 实现的方法有add_front(), add_rear(), remove_front(), remove_rear(), is_empty(), size()
 
 class Deque:
