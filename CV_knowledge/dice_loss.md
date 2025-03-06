@@ -79,6 +79,7 @@ $\epsilon$ 为一个极小的数，一般称为平滑系数，有两个作用:
  Dice Loss是有区域相关性的，指的是某一像素的预测将通过$L_{Dice}$影响其他像素的梯度。
 
 **Dice Loss 公式（方式一）：**
+
 $$
 L_{\text{Dice}} = 1 - \frac{2 \sum P_i G_i + \epsilon}{\sum P_i + \sum G_i + \epsilon}
 $$
