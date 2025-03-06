@@ -50,7 +50,7 @@ $$
 为了让 Dice Loss 可导，将**离散的二值集合运算替换为概率计算**，而实现方式也有好几种：
 
 1. 方式一：
-2. 
+
 $$
 L_{Dice}=1-\frac{2 \sum P_i G_i+\epsilon}{\sum P_i+\sum G_i+\epsilon}
 $$
@@ -129,3 +129,54 @@ $$
 
 - 边缘检测任务是极为样本不平衡的任务，所以可以试试Dice Loss
 - 可以结合CE Loss，看能不能有更好的效果
+
+## 9. Dice Loss 的 torch 实现（二分类）
+
+```python
+# 方式一：
+class DiceLoss1(nn.Module):
+    def __init__(self, epsilon=1e-6):
+        super(DiceLoss1, self).__init__()
+        self.epsilon = epsilon
+
+    def forward(self, pred, target):
+        assert pred.size() == target.size(), "the size of predict and target must be equal."
+        pred = torch.sigmoid(pred)  # 确保预测值在 (0,1) 之间
+        intersection = torch.sum(pred * target)
+        union = torch.sum(pred) + torch.sum(target)
+
+        dice = (2. * intersection + self.epsilon) / (union + self.epsilon)
+        return 1 - dice
+    
+# 方式二：
+class DiceLoss2(nn.Module):
+    def __init__(self, epsilon=1e-6):
+        super(DiceLoss2, self).__init__()
+        self.epsilon = epsilon
+
+    def forward(self, pred, target):
+        assert pred.size() == target.size(), "the size of predict and target must be equal."
+        pred = torch.sigmoid(pred)  # 确保预测值在 (0,1) 之间
+        intersection = torch.sum(pred * target)
+        union = torch.sum(pred) + torch.sum(target)
+
+        dice = (intersection + self.epsilon) / (union - intersection + self.epsilon)
+        return 1 - dice
+    
+# 方式三：
+class DiceLoss3(nn.Module):
+    def __init__(self, epsilon=1e-6):
+        super(DiceLoss3, self).__init__()
+        self.epsilon = epsilon
+        self.p = 2  # 分母指数
+
+    def forward(self, pred, target):
+        assert pred.size() == target.size(), "the size of predict and target must be equal."
+        pred = torch.sigmoid(pred)  # 确保预测值在 (0,1) 之间
+        intersection = torch.sum(pred * target)
+        union = torch.sum(pred.pow(self.p)) + torch.sum(target.pow(self.p))
+
+        dice = (intersection + self.epsilon) / (union+ self.epsilon)
+        return 1 - dice
+```
+
