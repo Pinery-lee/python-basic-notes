@@ -67,7 +67,7 @@ $$
 L_{Dice}=1-\frac{2 \sum P_i G_i+\epsilon}{\sum P_i^2+\sum G_i^2+\epsilon}
 $$
 
-$P_i$和$G_i$第i个预测像素值（0~1）和真实标签值（0或者1）。
+$P_i$和$G_{i}$第i个预测像素值（0~1）和真实标签值（0或者1）。
 
 $\epsilon$为一个极小的数，一般称为平滑系数，有两个作用:
 
@@ -79,7 +79,6 @@ $\epsilon$为一个极小的数，一般称为平滑系数，有两个作用:
  Dice Loss是有区域相关性的，指的是某一像素的预测将通过$L_{Dice}$影响其他像素的梯度。
 
 **Dice Loss 公式（方式一）：**
-
 $$
 L_{\text{Dice}} = 1 - \frac{2 \sum P_i G_i + \epsilon}{\sum P_i + \sum G_i + \epsilon}
 $$
