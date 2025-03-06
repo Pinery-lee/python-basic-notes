@@ -13,18 +13,22 @@ Dice Loss是受[Dice系数](https://zh.wikipedia.org/wiki/Dice系数)启发得�
 对于两个集合而言，原始的Dice系数是计算
 
 Dice 系数的原始定义如下：
+
 $$
 \text{Dice} = \frac{2 |A \cap B|}{|A| + |B|}
 $$
+
 用图像表示如下：
 
 ![image-20250305180932218](../figures/image-20250305180932218.png)
+
 $$
 \text{Dice} = \frac{2TP}{2TP + FP + FN}
 $$
 
 
 这个公式**与 [F1 Score](./F1_score.md) 在二分类问题下完全等价**：
+
 $$
 \text{F1} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}= \frac{2TP}{2TP + FP + FN}
 $$
@@ -46,9 +50,10 @@ $$
 为了让 Dice Loss 可导，将**离散的二值集合运算替换为概率计算**，而实现方式也有好几种：
 
 1. 方式一：
-   $$
-   L_{Dice}=1-\frac{2 \sum P_i G_i+\epsilon}{\sum P_i+\sum G_i+\epsilon}
-   $$
+2. 
+$$
+L_{Dice}=1-\frac{2 \sum P_i G_i+\epsilon}{\sum P_i+\sum G_i+\epsilon}
+$$
 
 2. 方式二：
 
@@ -74,21 +79,27 @@ $\epsilon$为一个极小的数，一般称为平滑系数，有两个作用:
  Dice Loss是有区域相关性的，指的是某一像素的预测将通过$L_{Dice}$影响其他像素的梯度。
 
 **Dice Loss 公式（方式一）：**
+
 $$
 L_{\text{Dice}} = 1 - \frac{2 \sum P_i G_i + \epsilon}{\sum P_i + \sum G_i + \epsilon}
 $$
+
 计算 $L_{Dice}$对某个像素点 $P_i$ 的梯度：
+
 $$
 \frac{\partial L_{\text{Dice}}}{\partial P_i} = \frac{-2 G_i (\sum P_i + \sum G_i) + 2 \sum P_i G_i}{(\sum P_i + \sum G_i)^2}
 $$
+
 我们可以看到：
 
 1. **梯度不仅仅取决于像素点 $P_i$ 自己的预测值，还涉及所有像素的总和（即 $\sum P_i$ 和 $\sum G_i$）。**
 
 2. **即使 $G_i = 0$（该像素是背景），它的梯度仍然可能受到整个区域的影响**，因为分母和分子都涉及整个图像的预测分布。这是的梯度为：
-   $$
-   \frac{\partial L_{\text{Dice}}}{\partial P_i} = \frac{2 \sum P_i G_i}{(\sum P_i + \sum G_i)^2}
-   $$
+
+$$
+\frac{\partial L_{\text{Dice}}}{\partial P_i} = \frac{2 \sum P_i G_i}{(\sum P_i + \sum G_i)^2}
+$$
+
    换句话说，**只有整张图全是背景的时候，背景的梯度才会接近零。**
 
 结论：
