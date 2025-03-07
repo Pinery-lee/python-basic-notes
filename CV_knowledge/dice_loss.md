@@ -27,7 +27,7 @@ $$
 $$
 
 
-这个公式**与 [F1 Score](./F1_score.md) 在二分类问题下完全等价**：
+这个公式**与 [F1 Score](./confusion_matrix_and_derivatives.md) 在二分类问题下完全等价**：
 
 $$
 \text{F1} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}= \frac{2TP}{2TP + FP + FN}
@@ -76,7 +76,7 @@ $\epsilon$ 为一个极小的数，一般称为平滑系数，有两个作用:
 
 ## 5. Dice Loss的区域相关性
 
- Dice Loss是有区域相关性的，指的是某一像素的预测将通过$L_{Dice}$影响其他像素的梯度。
+ Dice Loss是有区域相关性的，指的是某一像素的预测将通过 $L_{Dice}$ 影响其他像素的梯度。
 
 **Dice Loss 公式（方式一）：**
 
