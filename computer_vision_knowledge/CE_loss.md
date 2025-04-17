@@ -128,7 +128,7 @@ print("Multiclass classification loss:", loss.item())
 
 - 在`nn.BCEWithLogitsLoss()`中有`pos_weight`参数 （非`weight`）：
 
-> pos_weight (Tensor, 可选)  - [C]，每个类一个权重，$loss=−[pos_weight⋅y⋅log(σ(x))+(1−y)⋅log(1−σ(x))]$ 
+> pos_weight (Tensor, 可选)  - [C]，每个类一个权重， $loss=−[pos_weight⋅y⋅log(σ(x))+(1−y)⋅log(1−σ(x))]$ 
 >
 > 一个小坑：`pos_weight=0` 并不是让这一类“忽略”，只是让这一类中的正类（这里面涉及到我们平时说的[多类和多标签](.\multi_class&multi_label.md)的区别）的损失变为 0，**负类损失还是会计算**。
 
