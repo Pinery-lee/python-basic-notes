@@ -18,6 +18,7 @@ $$
 
 如果我使用 $P$ 本身来编码 $P$ 得到的是什么呢？
 恭喜你发明了 **熵（Entropy）**，就可以表示这个事件本身的一个不确定性：
+
 $$
 H(P) = - \sum_x P(x) \log P(x)
 $$
@@ -26,6 +27,7 @@ $$
 
 如果我使用交叉熵减去熵得到的是什么呢？
 恭喜你发明了**KL 散度（Kullback-Leibler Divergence）**，可以表示使用不同的 $Q$ 来编码 $P$ 需要的额外的信息量：
+
 $$
 \begin{align*} D_{KL}(P \| Q) &= \sum_x P(x) \log \frac{P(x)}{Q(x)} \\ &= \sum_x P(x) \left[ \log P(x) - \log Q(x) \right] \\ &= \sum_x P(x) \log P(x) - \sum_x P(x) \log Q(x) \\ &= -H(P) + H(P, Q) \\ &= H(P, Q) - H(P) \end{align*}
 $$
