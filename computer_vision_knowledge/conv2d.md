@@ -70,37 +70,52 @@ torch.nn.Conv2d(
 - **in_channels（输入通道数）**：
    类型：`int`
    输入图像的通道数。例如，RGB 图片是 3 通道，灰度图是 1 通道。
+   
    👉 通常等于前一层的输出通道数。
+   
 - **out_channels（输出通道数）**：
    类型：`int`
    卷积之后产生的通道数，也就是该层卷积核的数量。每个卷积核会生成一个输出通道。
+   
    👉 这个值决定了输出特征图的“厚度”。
+   
 - **kernel_size（卷积核大小）**：
    类型：`int` 或 `tuple (height, width)`
    卷积核的尺寸。例如 `3` 表示 `3x3` 的核。
+   
    👉 控制感受野的大小。
+   
 - **stride（步长）**：
    类型：`int` 或 `tuple`，默认值为 `1`
    卷积核滑动的步长，决定输出特征图的尺寸。
+   
    👉 大步长会减小输出尺寸（类似下采样）。
+   
 - **padding（填充）**：
    类型：`int`、`tuple` 或 `str`，默认值为 `0`
    在输入图像四周添加的像素层数。
+   
    👉 通常使用 `padding=1` 保证输出尺寸与输入相同（在 stride=1 的情况下）。
+   
 - **dilation（空洞长度）**：
    类型：`int` 或 `tuple`，[1, H/W)，默认值为 `1`
    控制卷积核内部元素之间的间距。1表示卷积核中间不插入0，n表示在每一行或列中间插入**（dilation-1）**个0
+   
    👉 用于 **空洞卷积**，增大感受野而不增加参数量。
+   
 - **groups（分组卷积）**：
    类型：`int`，默认值为 `1`
    控制输入输出之间的连接方式：
   - `groups=1`：普通卷积，每个输入通道连接每个输出通道；
   - `groups=in_channels=out_channels`：**depthwise 卷积**，每个输入通道使用一个卷积核独立处理；
   - 其他情况：**分组卷积**（如 ResNeXt 中使用）。
+  
 - **bias（是否添加偏置项）**：
    类型：`bool`，默认值为 `True`
    是否为每个输出通道添加一个可学习的偏置项。
+   
    👉 如果使用了 BatchNorm，通常设置为 `False`。
+   
 - **padding_mode（填充方式）**：
    类型：`str`，默认值为 `'zeros'`
    填充的模式，可选值有：
@@ -112,7 +127,7 @@ torch.nn.Conv2d(
 ## 3. 输入输出的张量形状变化
 
 - 输入：**$\left(N, C_{i n}, H_{i n}, W_{i n}\right)$ 或者 $\left(C_{i n}, H_{i n}, W_{i n}\right)$**, 注意是高H×宽W
-- 输出：$\left(N, C_{\text {out }}, H_{\text {out }}, W_{\text {out }}\right)$ 或者 $\left(C_{\text {out }}, H_{\text {out }}, W_{\text {out }}\right)$
+- 输出： $\left(N, C_{\text {out }}, H_{\text {out }}, W_{\text {out }}\right)$ 或者 $\left(C_{\text {out }}, H_{\text {out }}, W_{\text {out }}\right)$
 
 $$
 \begin{aligned}
@@ -121,7 +136,7 @@ $$
 \end{aligned}
 $$
 
-$H_{\text {in }}+2 \times \text { padding }$ 是填充之后的原图大小，$\text { dilation }\times(\text { kernel-size }-1)+1$ 是真实卷积核的大小， $H_{\text {in }}+2 \times \text { padding }-\text { dilation } \times(\text { kernel-size }-1)-1$ 是这个卷积核能滑动的范围，所以卷积核能滑动的范围除以步长就是输出的维度，但是如果不能整除， 最后多余的几行/列不参与卷积！所以要加1然后向下取整。
+$H_{\text {in }}+2 \times \text { padding }$ 是填充之后的原图大小， $\text { dilation }\times(\text { kernel-size }-1)+1$ 是真实卷积核的大小， $H_{\text {in }}+2 \times \text { padding }-\text { dilation } \times(\text { kernel-size }-1)-1$ 是这个卷积核能滑动的范围，所以卷积核能滑动的范围除以步长就是输出的维度，但是如果不能整除， 最后多余的几行/列不参与卷积！所以要加1然后向下取整。
 
 实验：
 
