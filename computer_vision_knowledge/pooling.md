@@ -27,7 +27,7 @@
 | **自适应池化**   | `nn.AdaptiveAvgPool2d` / `nn.AdaptiveMaxPool2d` | 指定输出大小，不看输入大小            |
 | **全局平均池化** | `AdaptiveAvgPool2d(1)`                          | 输出变成 `(N, C, 1, 1)`，常用于分类头 |
 | **分数最大池化** | `nn.FractionalMaxPool2d`                        | 用概率控制下采样，较少用              |
-| **P-范数池化**   | `nn.LPPool2d                                    | p阶范数形式的 pooling                 |
+| **P-范数池化**   | `nn.LPPool2d`                                   | p阶范数形式的 pooling                 |
 
 ##  3. PyTorch 示例代码对比
 
