@@ -27,7 +27,7 @@
 | **自适应池化**   | `nn.AdaptiveAvgPool2d` / `nn.AdaptiveMaxPool2d` | 指定输出大小，不看输入大小            |
 | **全局平均池化** | `AdaptiveAvgPool2d(1)`                          | 输出变成 `(N, C, 1, 1)`，常用于分类头 |
 | **分数最大池化** | `nn.FractionalMaxPool2d`                        | 用概率控制下采样，较少用              |
-| **LP池化**       | `nn.LPPool2d`                                   | 抽象数学形式的 pooling                |
+| **P-范数池化**   | `nn.LPPool2d                                    | p阶范数形式的 pooling                 |
 
 ##  3. PyTorch 示例代码对比
 
@@ -180,21 +180,22 @@ $$
 🎯 特殊情况说明：
 
 - **当 `p = 1` 时**，变成 **求和池化（等价于平均池化）**
-  $$
+
+$$
   \text{LpPool}_1(x) = \frac{1}{n} \sum |x_i|
-  $$
-  
+$$
+
 - **当 `p = 2` 时**，是 **平方平均池化**，对噪声鲁棒性更强。
 
-  $$
+$$
   \text{LpPool}_2(x) = \left( \frac{1}{n} \sum x_i^2 \right)^{1/2}
-  $$
+$$
 
 - **当 `p → ∞` 时**，近似为 **最大池化（Max Pooling）**
 
-  $$
+$$
   \text{LpPool}_p(x) = \max(x)
-  $$
+$$
 
 ```python
 import torch
@@ -225,3 +226,4 @@ tensor([[[[14., 22.],
 - 📏 输入大小不固定时，用 `Adaptive*` 系列更灵活
 - ❗ 不要把池化当成“越多越好”，信息丢失严重。比如图像 512x512 → 连续 5 次 2x2 池化，就变成 16x16，几乎啥都没了
 - 🎯 池化不增加通道数，只对空间（H, W）操作，不改变 `C`。如果通道数需要调整，用 `Conv2d(1x1)` 更合理
+
