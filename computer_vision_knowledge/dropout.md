@@ -2,14 +2,10 @@
 
 Dropout 是正则化的方法之一，本质上指的是在**训练期间**随机将某些张量元素归零的操作，从而抑制模型过拟合、增强泛化能力。
 
-------
-
 ## 1. 为什么是在训练期间，推理阶段能不能？
 
 Dropout 只在**训练阶段生效**，推理（inference）阶段是关闭的。
  原因在于，Dropout 的目的是在训练时通过随机遮挡一部分神经元，迫使模型不依赖某些特征，从而提升模型鲁棒性。而在推理阶段，我们希望模型利用所有学到的特征（强行Dropout会降低模型性能），因此需要**关闭 Dropout 并使用完整网络结构**，同时通过缩放激活值保持期望不变（例如 PyTorch 中自动处理缩放）。
-
-------
 
 ## 2. 怎么确定哪些元素归零，哪些元素不归零？
 
@@ -25,8 +21,6 @@ mask = torch.bernoulli(torch.ones_like(x) * (1 - p))
 out = x * mask / (1 - p)
 ```
 
-------
-
 ## 3. 某些张量一般指的是什么张量？
 
 Dropout 一般作用于**神经网络中的激活值（activations）张量**，即激活函数的结果，而不是权重或偏置：
@@ -34,8 +28,6 @@ Dropout 一般作用于**神经网络中的激活值（activations）张量**，
 - 对于全连接层，是对神经元输出（activation）进行 Drop；
 - 对于卷积层，可以使用 **Spatial Dropout（Dropout2D）**，按通道将整个 feature map Drop 掉；
 - 在 Transformer 等结构中也可用于 attention 层或 feed-forward 层之后（但要注意这里[dropout是对注意力权重张量进行的](.\computer_vision_knowledge\self_attention&multi-head attention.md)）。
-
-------
 
 ## 4. 参数概率 p 如何生效？
 
@@ -46,8 +38,6 @@ Dropout 一般作用于**神经网络中的激活值（activations）张量**，
 - 越深的网络，常常越需要较大的 p 值来防止过拟合；
 - 但 Dropout 并非越大越好，过高会造成训练不稳定或欠拟合。
 
-------
-
 ## 5. 示例说明
 
 以 PyTorch 为例：
@@ -56,7 +46,7 @@ Dropout 一般作用于**神经网络中的激活值（activations）张量**，
 import torch
 import torch.nn as nn
 
-drop = nn.Dropout(p=0.5)
+drop = nn.Dropout(p=0.5) # 大约一般的神经元，但不一定肯定都是一般，这个更准确应该解释为，张量的每个值都有0.5的概率被置为零
 
 x = torch.tensor([[1.0, 2.0, 3.0, 4.0]])
 drop.train()  # 训练模式
@@ -66,13 +56,10 @@ drop.eval()  # 推理模式
 print(drop(x))  # 输出不变，只做缩放
 ```
 
-输出（可能类似）：
+输出：
 
 ```
-tensor([[0.0000, 4.0000, 6.0000, 0.0000]])  # 一半 Drop，另一半除以 0.5
-tensor([[1.0000, 2.0000, 3.0000, 4.0000]])  # 推理时不 Drop
+tensor([[0., 4., 6., 8.]])
+tensor([[1., 2., 3., 4.]])
 ```
 
-------
-
-需要我配一张示意图展示 Dropout 的作用机制吗？
