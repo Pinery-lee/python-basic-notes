@@ -27,7 +27,7 @@ Dropout 一般作用于**神经网络中的激活值（activations）张量**，
 
 - 对于全连接层，是对神经元输出（activation）进行 Drop；
 - 对于卷积层，可以使用 **Spatial Dropout（Dropout2D）**，按通道将整个 feature map Drop 掉；
-- 在 Transformer 等结构中也可用于 attention 层或 feed-forward 层之后（但要注意这里[dropout是对注意力权重张量进行的](.\computer_vision_knowledge\self_attention&multi-head attention.md)）。
+- 在 Transformer 等结构中也可用于 attention 层或 feed-forward 层之后（但要注意这里[dropout是对注意力权重张量进行的](./computer_vision_knowledge/self_attention&multi-head attention.md)）。
 
 ## 4. 参数概率 p 如何生效？
 
