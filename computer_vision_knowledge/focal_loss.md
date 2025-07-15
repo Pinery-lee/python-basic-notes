@@ -12,13 +12,13 @@ $$
 \mathrm{CE}(p, y)=-\sum_{t=1}^C y_t \log \left(p_t\right)
 $$
 
-其中，$ C $ 是类别数，$p$ 是模型预测的每一类的概率，$ y $ 是真实标签(one-hot)，假设第 $ t $ 类是对应的类别，所以只有 $ y_t = 1 $ ，所以公式可以简化为：
+其中， $C$ 是类别数， $p$ 是模型预测的每一类的概率， $y$ 是真实标签(one-hot)，假设第 $t$ 类是对应的类别，所以只有 $y_t = 1$ ，所以公式可以简化为：
 
 $$
 \mathrm{CE}(p, y) = -\log \left(p_t\right)
 $$
 
-Focal Loss 就是在交叉熵的基础上加了调节系数 $ -\alpha_t\left(1-p_t\right)^\gamma $：
+Focal Loss 就是在交叉熵的基础上加了调节系数 $-\alpha_t\left(1-p_t\right)^\gamma$ ：
 
 $$
 \mathrm{FL}(p, y)=-\alpha_t\left(1-p_t\right)^\gamma \log \left(p_t\right)
