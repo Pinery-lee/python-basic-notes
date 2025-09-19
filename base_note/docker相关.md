@@ -153,6 +153,127 @@ docker run -d --name node_frontend -p 3000:3000 -v ./node:/app node_image
 
 - 简答版：进程独立的镜像运行实例。
 
-#### 6. 如何创建docker 镜像？
+#### 6. 如何创建docker容器？
 
-答：
+答：1. 使用 `dockr run [OPTIONS] IMAGE [COMMAD] [ARGUMENTS]`。2. 使用 `docker create` 只创建容器不运行。3. 使用 `docker compose` 配合 `docker-compose.yml`配置文件，多个容器协同运行。
+
+#### 7. docker hub 是什么？
+
+答： 是一个用来共享、存储和管理容器镜像的的集中式平台。
+
+### 常用命令
+
+#### 8. 如何查看当前运行的 docker 容器？
+
+答：`docker ps` (ps 是 `process status` 的缩写) 列出了所有正在运行的容器。加 `-a` 参数列出所有容器。
+
+#### 9. 如何启动和停止容器？
+
+答： `docker start [容器ID]` 启动容器。`docker stop [ID]` 停止容器。
+
+#### 10. 如何进入正在运行的容器？
+
+答： `docker exec -it [容器ID] /bin/bash` (exec →execute)
+
+#### 11. 如何删除容器和镜像？
+
+答： 删除容器 `docker rm [容器ID]`。 删除镜像 `docker rmi [镜像ID]`。
+
+#### 12. 如何查看容器日志
+
+答： `docker logs [容器ID]`
+
+现在 使用 docker 桌面端点点即可完成上述操作。
+
+### 网络管理
+
+#### 13. 什么是 docker 的网络？
+
+答：docker 给容器之间、容器和宿主机之间、容器和外部网络之间建立连接和提供通信的方式。
+
+#### 14. 有哪些网络模式？
+
+答：不同的网络模式就是不同的网络驱动，用来告诉 docker 如何为容器提供网络。内置的网络驱动包括：`bridge`, `host`, `none`, `overlay`, `macvlan`, `ipvlan`。bridge 是 docker 默认使用的网络，容器通过虚拟网桥互通。host 是容器直接共享宿主机的网络栈。none 就是不配置网络，容器完全隔离。overlay 是跨主机的虚拟网络，把多个 docker 守护进程(节点)连接起来。macvlan 给容器分配唯一的 MAC 地址。ipvlan 给容器分配独立 IP。
+
+#### 15. docker 容器间通信是如何工作的？
+
+答：关键在于要使用同一网络，这样不同的容器可以使用容器名称相互解析，实现容器间通信。例如使用 docker-compose.yml 中创建多个容器时，统一设置 networks 为同一网络名。
+
+### 存储管理
+
+#### 16. docker 有哪些存储方式？
+
+答：volume (卷) 、bind mount (绑定挂载)、tmpfs mount (临时文件系统挂载)
+
+#### 17. volume 和 bind mount 有什么区别？
+
+答：最关键的区别在于 volume 受到 docker 的管理，而 bind mount 不受 docker 管理，但两者都是永久性的。
+
+#### 18. bind mount 和 tmpfs mount 的区别？
+
+答：最大的区别在于 bind mount 是永久性的，不会随着容器停止或者删除而删除，而 tmpfs mount 是临时的，容器停则数据删除。前者放在硬盘上，后者放在内存里。
+
+#### 19. 怎么创建 volume?
+
+答：`docker volume create [卷名]`
+
+#### 20. 使用卷的主要用途？
+
+答：数据持久化和数据共享。
+
+### 创建镜像相关
+
+#### 21. Dockerfile 是啥有啥用？
+
+答：Dockerfile 是一个文本文件，包含了创建 Docker 镜像所需的一系列指令和命令。
+
+#### 22. 怎么使用 Dockerfile 创建镜像？
+
+答：1. **编写 Dockerfile**：写明基础镜像（`FROM`）、依赖安装、文件拷贝、环境变量、启动命令等。2. **构建镜像**：在 Dockerfile 所在目录执行 `docker build -t <镜像名>:<标签>`  或者 `docker compose build`命令构建镜像。
+
+#### 23. 
+
+
+
+
+
+### 冷门知识
+
+#### `CIFS` 是什么？
+
+答：是 **Common Internet File System** 的缩写。
+
+它是 **一种网络文件共享协议**，用于在局域网或通过网络访问远程文件，就像访问本地磁盘一样。CIFS 是 **SMB（Server Message Block）协议的一种实现**，常用于 Windows 文件共享。
+
+- **作用**：允许 Docker 挂载 Windows 或网络共享目录到容器中。
+- **特点**：
+  - 可以跨网络访问远程文件夹
+  - 支持身份验证（用户名/密码）
+  - 可以在 Linux 容器中挂载 Windows 网络共享
+
+简单记忆：**CIFS = SMB 的网络文件共享协议实现**。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
