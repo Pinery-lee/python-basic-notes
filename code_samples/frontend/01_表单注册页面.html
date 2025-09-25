@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册页面</title>
+</head>
+<body>
+    <h1> 时光不常在</h1>
+    <table cellpadding="20">
+        <!-- 第一行 -->
+        <tr>
+            <td>性别</td>
+            <td>
+                <input type="radio" name="gender" value="male" id="male"> <label for="male"> <label for="male"><img src="images/性别-男.png" alt="性别-男" width="20">男</label>
+                <input type="radio" name="gender" value="female" id="female"> <label for="female"> <label for="female"><img src="images/性别-女.png" alt="性别-女" width="20">女</label>
+            </td>
+        </tr>
+        <!-- 第二行 -->
+        <tr>
+             <td>生日</td>
+             <td>
+                <select name="year">
+                    <option value="">--请选择年份--</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                    <option value="2018">2018</option>
+                    <option value="2017">2017</option>
+                </select>
+                <select name="month">
+                    <option value="">--请选择月份--</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                <select name="day">
+                    <option value="">--请选择日期--</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                </select>
+             </td>
+        </tr>
+         <!-- 第三行 -->
+        <tr>
+            <td>所在地区</td>
+            <td>
+                <input type="text" name="area" placeholder="请输入省/市/区">
+            </td>
+        </tr>
+        <!-- 第四行 -->
+        <tr>
+            <td>婚姻状况</td>
+            <td>
+                <input type="radio" name="marry" value="married" id="married"> <label for="married">已婚</label>
+                <input type="radio" name="marry" value="single" id="single"> <label for="single">单身</label>
+                <input type="radio" name="marry" value="liyi" id="liyi"> <label for="liyi">离异</label>
+            </td>
+        </tr>
+        <!-- 第五行 -->
+        <tr>
+            <td>职业</td>
+            <td>
+                <input type="text" name="job" placeholder="请输入职业" value="幼儿园毕业">
+            </td>
+        </tr>
+        <!-- 第六行 -->
+        <tr>
+            <td>喜欢的类型</td>
+            <td>
+                <input type="checkbox" name="type[]" value="wumei" id="wumei"> <label for="wumei">妩媚的</label>
+                <input type="checkbox" name="type[]" value="keai" id="keai"> <label for="keai">可爱的</label>
+                <input type="checkbox" name="type[]" value="qingchun" id="qingchun"> <label for="qingchun">青春的</label>
+                <input type="checkbox" name="type[]" value="pangpang" id="pangpang"> <label for="pangpang">胖胖的</label>
+                <input type="checkbox" name="type[]" value="all" id="all"> <label for="all">都喜欢</label>
+            </td>
+        </tr>
+        <!-- 第七行 -->
+        <tr>
+            <td>自我介绍</td>
+            <td>
+                <textarea name="intro" placeholder="请输入自我介绍"></textarea>
+            </td>
+        </tr>
+        <!-- 第八行 -->
+        <tr>
+            <td></td>
+            <td>
+                <submit type="submit" value="免费注册">
+            </td>
+        </tr>
+        <!-- 第九行 -->
+        <tr>
+            <td></td>
+            <td>
+                <input type="checkbox" name="agree" value="agree" id="agree"> <label for="agree">我已阅读并同意《用户协议》</label>
+            </td>
+        </tr>
+        <!-- 第十一行 -->
+        <tr>
+            <td></td>
+            <td>
+                <a href="#">我是会员，立即登录</a>
+            </td>
+        </tr>
+        <!-- 第十二行 -->
+        <tr>
+            <td></td>
+            <td>
+                <p>我承诺</p>
+                <ul>
+                    <li>提供的个人信息真实、准确、完整、有效。</li>
+                    <li>不对外公开或向第三方提供个人信息。</li>
+                </ul>
+
+    </table>
+
+</body>
+</html>
