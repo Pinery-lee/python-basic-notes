@@ -231,7 +231,11 @@ docker run -d --name node_frontend -p 3000:3000 -v ./node:/app node_image
 
 答：1. **编写 Dockerfile**：写明基础镜像（`FROM`）、依赖安装、文件拷贝、环境变量、启动命令等。2. **构建镜像**：在 Dockerfile 所在目录执行 `docker build -t <镜像名>:<标签>`  或者 `docker compose build`命令构建镜像。
 
-#### 23. 
+#### 23. 如何列出本地的 docker 镜像？
+
+答：`docker images`
+
+#### 24. 
 
 
 
