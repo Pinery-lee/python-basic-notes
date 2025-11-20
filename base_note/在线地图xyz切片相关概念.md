@@ -288,19 +288,26 @@ import math
 
 TILE_SIZE = 256  # Leaflet 默认瓦片大小
 
-def latlng_to_tile(lat, lng, zoom):
-    """
-    经纬度转XYZ切片坐标
-    :param lat: 纬度
-    :param lng: 经度
-    :param zoom: 缩放级别
-    :return: tile_x, tile_y
-    """
-    n = 2 ** zoom
-    x = (lng + 180.0) / 360.0 * n
-    lat_rad = math.radians(lat)
-    y = (1 - math.log(math.tan(lat_rad) + 1 / math.cos(lat_rad)) / math.pi) / 2 * n
-    return int(x), int(y)
+# def latlng_to_tile(lat, lng, zoom):
+#     """
+#     经纬度转XYZ切片坐标
+#     :param lat: 纬度
+#     :param lng: 经度
+#     :param zoom: 缩放级别
+#     :return: tile_x, tile_y
+#     """
+#     n = 2 ** zoom
+#     x = (lng + 180.0) / 360.0 * n
+#     lat_rad = math.radians(lat)
+#     y = (1 - math.log(math.tan(lat_rad) + 1 / math.cos(lat_rad)) / math.pi) / 2 * n
+#     return int(x), int(y)
+
+def latlng_to_tile(lat_deg, lon_deg, zoom):
+    lat_rad = math.radians(lat_deg)
+    n = 1 << zoom
+    xtile = int((lon_deg + 180.0) / 360.0 * n)
+    ytile = int((1.0 - math.asinh(math.tan(lat_rad)) / math.pi) / 2.0 * n)
+    return xtile, ytile
 
 def tile_to_latlng_bounds(tile_x, tile_y, zoom):
     """
