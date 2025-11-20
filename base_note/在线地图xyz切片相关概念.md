@@ -28,19 +28,19 @@
 
 ### 5.不同等级下的切片数量？
 
-- 不同级别的切片数量就等于把整个地球切为 2^n^ * 2^n^ 个切片
+- 不同级别的切片数量就等于把整个地球切为 2<sup>n</sup> * 2<sup>n</sup> 个切片
 
-| Zoom | 地球瓦片数    | 每瓦片代表的区域 |
-| ---- | ------------- | ---------------- |
-| 0    | 1×1 = 1       | 整个地球         |
-| 1    | 2×2 = 4       | 1/4个地球        |
-| 2    | 4×4 = 16      | 1/16地球         |
-| ...  | ...           | ...              |
-| 10   | 2^10^ * 2^10^ | 一个省或城市     |
-| ...  | ...           | ...              |
-| 18   | 2^18^ * 2^18^ | 社区/房屋级别    |
-| ...  | ...           | ...              |
-| n    | 2^n^ * 2^n^   | ...              |
+| Zoom | 地球瓦片数                      | 每瓦片代表的区域 |
+| ---- | ------------------------------- | ---------------- |
+| 0    | 1×1 = 1                         | 整个地球         |
+| 1    | 2×2 = 4                         | 1/4个地球        |
+| 2    | 4×4 = 16                        | 1/16地球         |
+| ...  | ...                             | ...              |
+| 10   | 2<sup>10</sup> * 2<sup>10</sup> | 一个省或城市     |
+| ...  | ...                             | ...              |
+| 18   | 2<sup>18</sup> * 2<sup>18</sup> | 社区/房屋级别    |
+| ...  | ...                             | ...              |
+| n    | 2<sup>n</sup> * 2<sup>n</sup>   | ...              |
 
 ### 6.椭圆的地球是怎么变成平面正方形的切片的？[bing地图切片系统的介绍](https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system)
 
@@ -53,8 +53,8 @@
 
 ### 7.切片系统中x y z分别代表什么？
 
-- x表示从左到右的列数，从左往右，x逐渐增大，值域是 0 ~ 2^Z^ - 1 （左 → 右）
-- y表示从上到下的行数，从上往下，y逐渐增大，值域是 0 ~ 2^Z^ - 1 （上→ 下）
+- x表示从左到右的列数，从左往右，x逐渐增大，值域是 0 ~ 2<sup>Z</sup> - 1 （左 → 右）
+- y表示从上到下的行数，从上往下，y逐渐增大，值域是 0 ~ 2<sup>Z</sup> - 1 （上→ 下）
 - z表示地图缩放等级
 - 中国在45°对角线右上方，所以x比y大，所以在中国境内，数字大的是x，小的是y
 
@@ -83,13 +83,16 @@
 ### 10. 3857 投影坐标系 y 和 4326 地理坐标系纬度的换算公式？
 
  **Web Mercator / Mercator 投影** 的核心变换公式：
+
 $$
- y = R \cdot \ln \left( \tan\left(\frac{\pi}{4} + \frac{\varphi}{2}\right)\right)
+y = R \cdot \ln \left( \tan\left(\frac{\pi}{4} + \frac{\varphi}{2}\right)\right)
 $$
+
 其中：
 
 - $R$ = 地球半径（球体假设）
    在 EPSG: 3857 中采用
+
   $$
   R = 6378137 \text{ m}
   $$
@@ -99,37 +102,48 @@ $$
 - $y$ = 投影后的北方向坐标（单位：米）
 
 从
+
 $$
 y_{\max}=R\pi = R\ln\big(\tan(\tfrac{\pi}{4}+\tfrac{\varphi_{\max}}{2})\big)
 $$
+
  两边除以 (R)：
+
 $$
 \pi = \ln\big(\tan(\tfrac{\pi}{4}+\tfrac{\varphi_{\max}}{2})\big)
 $$
+
  取指数：
+
 $$
 \tan\big(\tfrac{\pi}{4}+\tfrac{\varphi_{\max}}{2}\big)=e^{\pi}
 $$
+
  两边取反正切并解出 (\varphi_{\max})：
+
 $$
  \tfrac{\pi}{4}+\tfrac{\varphi_{\max}}{2}=\arctan(e^{\pi})
 $$
+
  所以
+
 $$
  \varphi_{\max}=2\arctan(e^{\pi})-\tfrac{\pi}{2}.
 $$
 
 把弧度结果换成角度：
+
 $$
 \varphi_{\max,(^\circ)} = \big(2\arctan(e^{\pi})-\tfrac{\pi}{2}\big)\times\frac{180}{\pi}.
 $$
 
 数值计算得到：
+
 $$
 \varphi_{\max,(^\circ)} \approx 85.0511287798066^\circ.
 $$
 
-因此有效的纬度范围约为 $[-85.05112878^\circ, +85.05112878^\circ]$。
+因此有效的纬度范围约为 $[-85.05112878</sup>\circ, +85.05112878</sup>\circ]$。
 
 python公式：
 
@@ -154,6 +168,7 @@ Mercator 投影的核心思想：
 $$
  \frac{dy}{d\varphi} = \sec \varphi = \frac{1}{\cos\varphi}
 $$
+
 因为 Mercator 必须满足经纬线保持直角，且纬度变化被放大（正割因子）。
 
 解积分：
@@ -161,36 +176,45 @@ $$
 $$
 y = R \int \sec\varphi  d\varphi
 $$
+
 而：
 
 $$
 \int \sec\varphi  d\varphi = \ln \left|\tan\left(\frac{\pi}{4} + \frac{\varphi}{2}\right)\right| + C
 $$
+
 因此得到：
 
 $$
 y = R \ln \left(\tan\left(\frac{\pi}{4} + \frac{\varphi}{2}\right)\right)
 $$
+
 这就是 Mercator 投影的由来。
 
 来看这个函数：
+
 $$
 \tan\left(\frac{\pi}{4} + \frac{\varphi}{2}\right)
 $$
-当 $\varphi \to 90^\circ$：
+
+当 $\varphi \to 90^\circ$ ：
+
 $$
 \frac{\pi}{4} + \frac{\pi}{2}/2 = \frac{\pi}{2}
 \Rightarrow \tan\left(\frac{\pi}{2}\right) = \infty
 \Rightarrow y \to +\infty
 $$
+
 即：
 
 🌋 极点附近会被无限拉伸，无法表示！
 
 因此 Web Mercator **人为截断**：
+
 $$
 |\varphi| \le 85.05112878^\circ
 $$
+
 也就是看到的地图只显示到大约 ±85°。
 
 ### 12. z 和地面分辨率的对应关系？
@@ -226,22 +250,29 @@ $$
 地面分辨率 = 每个像素在地面上代表的真实距离（米/像素）
 
 Web Mercator 子午圈长度（赤道周长）近似采用：
+
 $$
 \text{EarthCircumference} = 2\pi R = 40075016.68557849 \text{ m}
 $$
+
 $$
  R = 6378137 \text{ m}
 $$
 
 在 zoom = 0 时，整幅地图是一个 **256×256** 的瓦片：
+
 $$
  \text{Resolution}(z=0) = \frac{40075016.6856}{256} \approx 156543.033928 \text{ m/px}
 $$
+
 对于任意级别：
+
 $$
 {\text{Resolution}(z) = \frac{40075016.6856}{256 \cdot 2^z}}
 $$
+
 对于十八级：
+
 $$
 {\text{Resolution}(18) = \frac{40075016.6856}{256 \cdot 2^{18}} = 0.5971642834779395}
 $$
