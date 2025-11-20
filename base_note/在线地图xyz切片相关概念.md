@@ -93,9 +93,9 @@ $$
 - $R$ = 地球半径（球体假设）
    在 EPSG: 3857 中采用
 
-  $$
-  R = 6378137 \text{ m}
-  $$
+$$
+R = 6378137 \text{ m}
+$$
 
 - $\varphi$ = 纬度（单位：弧度）
 
@@ -119,7 +119,7 @@ $$
 \tan\big(\tfrac{\pi}{4}+\tfrac{\varphi_{\max}}{2}\big)=e^{\pi}
 $$
 
- 两边取反正切并解出 (\varphi_{\max})：
+ 两边取反正切并解出 $\varphi_{\max}$ ：
 
 $$
  \tfrac{\pi}{4}+\tfrac{\varphi_{\max}}{2}=\arctan(e^{\pi})
@@ -128,7 +128,7 @@ $$
  所以
 
 $$
- \varphi_{\max}=2\arctan(e^{\pi})-\tfrac{\pi}{2}.
+\varphi_{\max}=2\arctan(e^{\pi})-\tfrac{\pi}{2}.
 $$
 
 把弧度结果换成角度：
@@ -143,7 +143,7 @@ $$
 \varphi_{\max,(^\circ)} \approx 85.0511287798066^\circ.
 $$
 
-因此有效的纬度范围约为 $[-85.05112878</sup>\circ, +85.05112878</sup>\circ]$。
+因此有效的纬度范围约为 $[-85.05112878^\circ, +85.05112878^\circ]$。
 
 python公式：
 
